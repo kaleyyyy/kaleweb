@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,47 +9,65 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
+    /* Vanta.js container */
+    #vanta-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .slide-in {
+      animation: slideIn 1s forwards;
+    }
+
     body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start; /* Align items to the left */
-      padding-left: 40px;       /* Desktop left padding */
+      align-items: flex-start;
+      padding-left: 40px;
       height: 100vh;
-      background-color: white;
       margin: 0;
       font-family: 'Outfit', sans-serif;
       text-align: left;
       overflow-y: hidden;
+      color: white;
     }
+
     .icon {
       position: fixed;
-      top: 10px;
-      left: 10px;
-      font-size: 42px;
-      color: #000000;
+      top: 50px;
+      left: 40px;
+      font-size: 60px;
+      color: white;
+      z-index: 1;
     }
+
     .hello {
       font-size: 180px;
       font-weight: bold;
       margin-bottom: 15px;
-      opacity: 1;
-      transform: translateX(0);
-      transition: opacity 1s ease-in-out;
-      margin-left: 300px; /* Desktop left margin for Hello! */
+      margin-left: 250px;
+      position: relative;
+      z-index: 1;
+      transition: opacity 1s ease-in-out; /* Restored transition property */
     }
-    .slide-in {
-      animation: slideIn 1s forwards;
-    }
+
     .name {
       font-size: 70px;
       opacity: 0;
       animation: fadeIn 1s forwards;
       animation-delay: 2s;
-      margin-left: 600px; /* Increased left margin for "I'm Kaley" */
-      height: 70px; /* Fixed height for "I'm Kaley" to prevent shifting */
-      line-height: 70px; /* Vertically center "I'm Kaley" text */
+      margin-left: 600px;
+      height: 70px;
+      line-height: 70px;
+      position: relative;
+      z-index: 1;
     }
+
     @keyframes slideIn {
       from {
         transform: translateX(100vw);
@@ -58,80 +78,97 @@
         opacity: 1;
       }
     }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    /* Mobile friendly adjustments for screens up to 768px wide */
+
+    /* Mobile responsive styles */
     @media (max-width: 768px) {
-      body {
-        padding-left: 20px;
+      body { padding-left: 20px; }
+      .hello { 
+        font-size: 80px; 
+        margin-left: 100px;
+        transition: opacity 0.8s ease-in-out; /* Mobile transition */
       }
-      .hello {
-        font-size: 80px;
-        margin-left: 100px; /* Shift "Hello!" more to the right for mobile */
+      .name { 
+        font-size: 40px; 
+        margin-left: 130px; 
+        height: 50px; 
+        line-height: 50px; 
       }
-      .name {
-        font-size: 40px;
-        margin-left: 130px; /* Shift "I'm Kaley" further to the right */
-        height: 50px; /* Adjust height for mobile */
-        line-height: 50px; /* Vertically center on mobile */
-      }
-      .icon {
-        font-size: 32px;
-      }
+      .icon { font-size: 32px; }
     }
-    /* Further adjustments for very small screens (up to 480px wide) */
+
     @media (max-width: 480px) {
-      body {
-        padding-left: 10px;
+      body { padding-left: 10px; }
+      .hello { 
+        font-size: 60px; 
+        margin-left: 80px;
+        transition: opacity 0.6s ease-in-out; /* Smaller screen transition */
       }
-      .hello {
-        font-size: 60px;
-        margin-left: 80px; /* Shift "Hello!" more to the right for very small screens */
+      .name { 
+        font-size: 30px; 
+        margin-left: 150px; 
+        height: 40px; 
+        line-height: 40px; 
       }
-      .name {
-        font-size: 30px;
-        margin-left: 150px; /* Further increased shift for "I'm Kaley" on small screens */
-        height: 40px; /* Adjust height for very small screens */
-        line-height: 40px; /* Vertically center on very small screens */
-      }
-      .icon {
-        font-size: 28px;
-      }
+      .icon { font-size: 28px; }
     }
   </style>
 </head>
 <body>
+  <div id="vanta-background"></div>
   <i class="fa-solid fa-earth-americas icon"></i>
   <div id="hello" class="hello slide-in">Hello!</div>
   <div class="name">I'm Kaley</div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.globe.min.js"></script>
   <script>
+    VANTA.GLOBE({
+      el: "#vanta-background",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xffffff,
+      size: 0.50,
+      backgroundColor: 0x0,
+      showLines: false
+    });
+
     const helloElement = document.getElementById('hello');
     const languages = [
       'Hola', 'Bonjour', 'Hallo', 'Ciao', 'Hej', 'Olá', 'Salam', 'Привет',
       'こんにちは', '안녕하세요', 'Merhaba', 'שלום', 'สวัสดี', 'Helo', 'Hallo',
-      'Xin chào', 'Kaixo', 'வணக்கம்', 'Здраво', 'హలో', 'שלום', 'γειά σας',
-      'Hey'
+      'Xin chào', 'Kaixo', 'வணக்கம்', 'Здраво', 'హలో', 'שלום', 'γειά σας', 'Hey'
     ];
     
     let index = 0;
     
-    // Remove the slide-in class after the animation completes
     helloElement.addEventListener('animationend', () => {
       helloElement.classList.remove('slide-in');
     });
     
     function changeHelloText() {
+      // Fade out
       helloElement.style.opacity = 0;
+      
+      // Wait for fade out to complete
       setTimeout(() => {
+        // Change text and fade in
         helloElement.textContent = languages[index];
         helloElement.style.opacity = 1;
         index = (index + 1) % languages.length;
-      }, 1000);
+      }, 1000); // Matches transition duration
     }
     
+    // Start language rotation after initial animations
     setTimeout(() => {
       setInterval(changeHelloText, 3200);
     }, 2000);
