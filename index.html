@@ -4,30 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello Screen</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Align items to the left */
+      padding-left: 40px;       /* Desktop left padding */
       height: 100vh;
       background-color: white;
       margin: 0;
       font-family: 'Outfit', sans-serif;
-      text-align: center;
+      text-align: left;
       overflow-y: hidden;
-    }
-    /* Custom black scrollbar */
-    body::-webkit-scrollbar {
-      display: none;
     }
     .icon {
       position: fixed;
@@ -37,24 +28,25 @@
       color: #000000;
     }
     .hello {
-      font-size: 80px;
+      font-size: 180px;
       font-weight: bold;
-      position: relative;
       margin-bottom: 15px;
-      opacity: 1; /* Ensure visible after slide-in */
+      opacity: 1;
       transform: translateX(0);
-      transition: opacity 1s ease-in-out; /* Smooth opacity transition */
+      transition: opacity 1s ease-in-out;
+      margin-left: 300px; /* Desktop left margin for Hello! */
     }
-    /* Temporary class for slide-in */
     .slide-in {
       animation: slideIn 1s forwards;
     }
     .name {
-      font-size: 40px;
-      position: relative;
+      font-size: 70px;
       opacity: 0;
       animation: fadeIn 1s forwards;
       animation-delay: 2s;
+      margin-left: 600px; /* Increased left margin for "I'm Kaley" */
+      height: 70px; /* Fixed height for "I'm Kaley" to prevent shifting */
+      line-height: 70px; /* Vertically center "I'm Kaley" text */
     }
     @keyframes slideIn {
       from {
@@ -67,77 +59,81 @@
       }
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Mobile friendly adjustments for screens up to 768px wide */
+    @media (max-width: 768px) {
+      body {
+        padding-left: 20px;
       }
-      to {
-        opacity: 1;
+      .hello {
+        font-size: 80px;
+        margin-left: 100px; /* Shift "Hello!" more to the right for mobile */
+      }
+      .name {
+        font-size: 40px;
+        margin-left: 130px; /* Shift "I'm Kaley" further to the right */
+        height: 50px; /* Adjust height for mobile */
+        line-height: 50px; /* Vertically center on mobile */
+      }
+      .icon {
+        font-size: 32px;
+      }
+    }
+    /* Further adjustments for very small screens (up to 480px wide) */
+    @media (max-width: 480px) {
+      body {
+        padding-left: 10px;
+      }
+      .hello {
+        font-size: 60px;
+        margin-left: 80px; /* Shift "Hello!" more to the right for very small screens */
+      }
+      .name {
+        font-size: 30px;
+        margin-left: 150px; /* Further increased shift for "I'm Kaley" on small screens */
+        height: 40px; /* Adjust height for very small screens */
+        line-height: 40px; /* Vertically center on very small screens */
+      }
+      .icon {
+        font-size: 28px;
       }
     }
   </style>
 </head>
 <body>
   <i class="fa-solid fa-earth-americas icon"></i>
-  <div id="hello" class="hello">Hello!</div>
+  <div id="hello" class="hello slide-in">Hello!</div>
   <div class="name">I'm Kaley</div>
 
   <script>
     const helloElement = document.getElementById('hello');
     const languages = [
-      'Hello!',
-      'Hola',
-      'Bonjour',
-      'Hallo',
-      'Ciao',
-      'Hej',
-      'Olá',
-      'Salam',
-      'Привет',
-      'こんにちは',
-      '안녕하세요',
-      'Merhaba',
-      'שלום',
-      'สวัสดี',
-      'Helo',
-      'Hallo',
-      'Xin chào',
-      'Kaixo',
-      'வணக்கம்',
-      'Здраво',
-      'హలో',
-      'שלום',
-      'γειά σας',
-      'Hey',
-      'Bonjour',
-      '안녕하세요',
-      'Merhaba',
-      'Hola',
-      '你好',
-      'שלום'
+      'Hola', 'Bonjour', 'Hallo', 'Ciao', 'Hej', 'Olá', 'Salam', 'Привет',
+      'こんにちは', '안녕하세요', 'Merhaba', 'שלום', 'สวัสดี', 'Helo', 'Hallo',
+      'Xin chào', 'Kaixo', 'வணக்கம்', 'Здраво', 'హలో', 'שלום', 'γειά σας',
+      'Hey'
     ];
     
     let index = 0;
-
-    // Add the temporary slide-in class on page load
-    helloElement.classList.add('slide-in');
-    // Once the slide-in animation ends, remove the class so that only the fade transition is active afterward.
+    
+    // Remove the slide-in class after the animation completes
     helloElement.addEventListener('animationend', () => {
       helloElement.classList.remove('slide-in');
     });
-
-    // Function to fade out, change the text, and then fade in
+    
     function changeHelloText() {
-      helloElement.style.opacity = 0; // Fade out
+      helloElement.style.opacity = 0;
       setTimeout(() => {
-        helloElement.textContent = languages[index]; // Change text
-        helloElement.style.opacity = 1; // Fade in
-        index = (index + 1) % languages.length; // Loop through languages
-      }, 1000); // Wait 1 second for fade-out to complete
+        helloElement.textContent = languages[index];
+        helloElement.style.opacity = 1;
+        index = (index + 1) % languages.length;
+      }, 1000);
     }
-
-    // Start the language transitions after "I'm Kaley" appears (2-second delay)
+    
     setTimeout(() => {
-      setInterval(changeHelloText, 3500); // Change text every 3.5 seconds
+      setInterval(changeHelloText, 3200);
     }, 2000);
   </script>
 </body>
