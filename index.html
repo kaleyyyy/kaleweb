@@ -77,13 +77,13 @@
       transition: transform 0.3s ease-in-out;
     }
     .nav-links a:hover span {
-      transform: translateY(-5px); /* Only the text moves on hover */
+      transform: translateY(-5px);
     }
-    /* Add bullets between links on larger screens with proper spacing */
+    
     .nav-links a + a::before {
       content: '•';
       position: absolute;
-      left: -30px; /* Adjust spacing from previous link */
+      left: -30px;
       color: white;
       font-size: 24px;
       line-height: 1;
@@ -111,7 +111,6 @@
       z-index: 1;
     }
     
-    /* Kaley blue glow on hover */
     .kaley {
       transition: text-shadow 0.3s ease;
     }
@@ -160,21 +159,21 @@
         position: fixed;
         left: 50%;
         transform: translateX(-50%);
-        top: 100px; /* Pushed down below the icon */
+        top: 100px;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centers the links */
+        align-items: center;
         font-size: 18px;
       }
       .nav-links a {
         margin: 0;
-        margin-bottom: 10px; /* Spacing between stacked links */
+        margin-bottom: 10px;
       }
       .nav-links a + a::before {
-        content: none; /* Remove bullets on mobile */
+        content: none;
       }
       .main-content {
-        margin-top: 180px; /* Reduced from 200px to push content up */
+        margin-top: 150px; /* Pushed up more */
       }
     }
     
@@ -196,11 +195,11 @@
         font-size: 28px;
       }
       .nav-links {
-        top: 90px; /* Adjust for smaller icon size */
+        top: 90px;
         font-size: 16px;
       }
       .main-content {
-        margin-top: 160px; /* Reduced from 180px to push content up */
+        margin-top: 130px; /* Pushed up more */
       }
     }
   </style>
@@ -209,14 +208,12 @@
   <div id="vanta-background"></div>
   <i class="fa-solid fa-earth-americas icon"></i>
   
-  <!-- Navigation links with spans for text -->
   <div class="nav-links">
     <a href="about.html"><span>About Me</span></a>
     <a href="projects.html"><span>Projects</span></a>
     <a href="socials.html"><span>Socials</span></a>
   </div>
   
-  <!-- Main content wrapper -->
   <div class="main-content">
     <div id="hello" class="hello slide-in">Hello!</div>
     <div class="name">I'm <span class="kaley">Kaley</span></div>
